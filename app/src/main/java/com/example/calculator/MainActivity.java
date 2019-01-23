@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("1");
-//                binding.equation.setText(binding.equation.getText() + "1");
             }
         });
 
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("2");
-//                binding.equation.setText(binding.equation.getText() + "2");
             }
         });
 
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("3");
-//                binding.equation.setText(binding.equation.getText() + "3");
             }
         });
 
@@ -71,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("4");
-//                binding.equation.setText(binding.equation.getText() + "4");
             }
         });
 
@@ -79,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("5");
-//                binding.equation.setText(binding.equation.getText() + "5");
             }
         });
 
@@ -87,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("6");
-//                binding.equation.setText(binding.equation.getText() + "6");
             }
         });
 
@@ -95,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("7");
-//                binding.equation.setText(binding.equation.getText() + "7");
             }
         });
 
@@ -103,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("8");
-//                binding.equation.setText(binding.equation.getText() + "8");
             }
         });
 
@@ -111,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 appendToEquation("9");
-//                binding.equation.setText(binding.equation.getText() + "9");
             }
         });
 
@@ -120,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!binding.equation.getText().toString().contains(".")) {
                     appendToEquation(".");
-//                    binding.equation.setText(binding.equation.getText() + ".");
                 }
             }
         });
@@ -131,10 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!binding.equation.getText().toString().isEmpty()) {
                     computeCalculation();
                     CURRENT_ACTION = ADDITION;
-                    appendToEquation(" + ");
-                    
-//                    binding.equation.setText(decimalFormat.format(valueOne) + " + ");
-//                    binding.equation.setText(null);
+                    appendToEquation("+");
                 }
             }
         });
@@ -145,9 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
                     CURRENT_ACTION = SUBTRACTION;
-                    appendToEquation(" - ");
-//                binding.equation.setText(decimalFormat.format(valueOne) + " - ");
-//                binding.equation.setText(null);
+                    appendToEquation("-");
                 }
             }
         });
@@ -158,9 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
                     CURRENT_ACTION = MULTIPLICATION;
-                    appendToEquation(" * ");
-//                binding.equation.setText(decimalFormat.format(valueOne) + " * ");
-//                binding.equation.setText(null);
+                    appendToEquation("*");
                 }
             }
         });
@@ -171,9 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
                     CURRENT_ACTION = DIVISION;
-                    appendToEquation(" / ");
-//                binding.equation.setText(decimalFormat.format(valueOne) + " / ");
-//                binding.equation.setText(null);
+                    appendToEquation("/");
                 }
             }
         });
@@ -182,17 +163,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 computeCalculation();
-//                binding.resultTextView.setText(binding.resultTextView.getText().toString() + decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
-//                updateResult(valueOne);
-                //valueOne = Double.NaN;
-//                binding.equation.setText(decimalFormat.format(valueOne));
             }
         });
 
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                binding.resultTextView.setText(null);
                 binding.equation.setText(null);
                 valueOne = Double.NaN;
                 valueTwo = Double.NaN;
@@ -208,21 +184,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void parseEquation() {
-
-    }
-
-    private void computeEquation() {
-
-    }
-
     private void appendToEquation(String value) {
         binding.equation.setText(binding.equation.getText() + value);
     }
 
-//    private void updateResult(double value) {
-//        binding.resultTextView.setText(String.valueOf(value));
-//    }
 
     private Double getValueTwo() {
         String equation = binding.equation.getText().toString();
@@ -230,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         if(operatorIndex == -1) {
             return Double.NaN;
         }
-        String valueString = equation.substring(operatorIndex + 2);
+        String valueString = equation.substring(operatorIndex + 1);
         if(valueString.isEmpty()) {
             return Double.NaN;
         }
@@ -244,8 +209,6 @@ public class MainActivity extends AppCompatActivity {
             } catch(Exception e) {}
         } else {
             valueTwo = getValueTwo();
-//            valueTwo = Double.parseDouble(binding.equation.getText().toString());
-//            binding.equation.setText(null);
             if(!Double.isNaN(valueTwo)) {
                 if (CURRENT_ACTION == ADDITION) {
                     valueOne += valueTwo;
