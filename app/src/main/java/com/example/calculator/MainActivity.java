@@ -128,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!"".equals(binding.equation.getText().toString())) {
+                if(!binding.equation.getText().toString().isEmpty()) {
                     computeCalculation();
                     CURRENT_ACTION = ADDITION;
-                    appendToEquation("+");
+                    appendToEquation(" + ");
+                    
 //                    binding.equation.setText(decimalFormat.format(valueOne) + " + ");
 //                    binding.equation.setText(null);
                 }
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
                     CURRENT_ACTION = SUBTRACTION;
-                    appendToEquation("-");
+                    appendToEquation(" - ");
 //                binding.equation.setText(decimalFormat.format(valueOne) + " - ");
 //                binding.equation.setText(null);
                 }
@@ -182,17 +183,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 computeCalculation();
 //                binding.resultTextView.setText(binding.resultTextView.getText().toString() + decimalFormat.format(valueTwo) + " = " + decimalFormat.format(valueOne));
-                updateResult(valueOne);
+//                updateResult(valueOne);
                 //valueOne = Double.NaN;
-                CURRENT_ACTION = NONE;
+//                binding.equation.setText(decimalFormat.format(valueOne));
             }
         });
 
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.resultTextView.setText(null);
+//                binding.resultTextView.setText(null);
                 binding.equation.setText(null);
+                valueOne = Double.NaN;
+                valueTwo = Double.NaN;
             }
         });
 
@@ -217,8 +220,21 @@ public class MainActivity extends AppCompatActivity {
         binding.equation.setText(binding.equation.getText() + value);
     }
 
-    private void updateResult(double value) {
-        binding.resultTextView.setText(String.valueOf(value));
+//    private void updateResult(double value) {
+//        binding.resultTextView.setText(String.valueOf(value));
+//    }
+
+    private Double getValueTwo() {
+        String equation = binding.equation.getText().toString();
+        int operatorIndex = equation.indexOf(CURRENT_ACTION);
+        if(operatorIndex == -1) {
+            return Double.NaN;
+        }
+        String valueString = equation.substring(operatorIndex + 2);
+        if(valueString.isEmpty()) {
+            return Double.NaN;
+        }
+        return Double.parseDouble(valueString);
     }
 
     private void computeCalculation() {
@@ -227,17 +243,21 @@ public class MainActivity extends AppCompatActivity {
                 valueOne = Double.parseDouble(binding.equation.getText().toString());
             } catch(Exception e) {}
         } else {
-            valueTwo = Double.parseDouble(binding.equation.getText().toString());
-            binding.equation.setText(null);
-
-            if(CURRENT_ACTION == ADDITION) {
-                valueOne += valueTwo;
-            } else if(CURRENT_ACTION == SUBTRACTION) {
-                valueOne -= valueTwo;
-            } else if(CURRENT_ACTION == MULTIPLICATION) {
-                valueOne *= valueTwo;
-            } else if(CURRENT_ACTION == DIVISION) {
-                valueOne /= valueTwo;
+            valueTwo = getValueTwo();
+//            valueTwo = Double.parseDouble(binding.equation.getText().toString());
+//            binding.equation.setText(null);
+            if(!Double.isNaN(valueTwo)) {
+                if (CURRENT_ACTION == ADDITION) {
+                    valueOne += valueTwo;
+                } else if (CURRENT_ACTION == SUBTRACTION) {
+                    valueOne -= valueTwo;
+                } else if (CURRENT_ACTION == MULTIPLICATION) {
+                    valueOne *= valueTwo;
+                } else if (CURRENT_ACTION == DIVISION) {
+                    valueOne /= valueTwo;
+                }
+                binding.equation.setText(decimalFormat.format(valueOne));
+                CURRENT_ACTION = NONE;
             }
         }
     }

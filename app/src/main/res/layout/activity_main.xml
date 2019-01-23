@@ -25,22 +25,22 @@
             android:maxLines="2"
             android:textSize="30sp"/>
 
-        <TextView
-            android:id="@+id/resultTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/equation"
-            android:gravity="end"
-            android:textAlignment="textEnd"
-            android:enabled="false"
-            android:textSize="40sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/resultTextView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/equation"-->
+            <!--android:gravity="end"-->
+            <!--android:textAlignment="textEnd"-->
+            <!--android:enabled="false"-->
+            <!--android:textSize="40sp" />-->
 
         <Button
             android:id="@+id/button1"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/resultTextView"
+            android:layout_below="@id/equation"
             android:text="1" />
 
         <Button
@@ -48,7 +48,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/resultTextView"
+            android:layout_below="@id/equation"
             android:layout_toRightOf="@id/button1"
             android:text="2" />
 
@@ -57,7 +57,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/resultTextView"
+            android:layout_below="@id/equation"
             android:layout_toRightOf="@id/button2"
             android:text="3" />
 
@@ -144,7 +144,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/resultTextView"
+            android:layout_below="@id/equation"
             android:layout_toRightOf="@id/button3"
             android:text="*" />
 
