@@ -120,8 +120,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!binding.equation.getText().toString().isEmpty()) {
                     computeCalculation();
+
+                    // this will happen if trying place a 2nd operator without a 2nd digit
+                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != ADDITION) {
+                        changeOperator("+");
+                    } else {
+                        appendToEquation("+");
+                    }
+
                     CURRENT_ACTION = ADDITION;
-                    appendToEquation("+");
                 }
             }
         });
@@ -131,8 +138,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
+
+                    // this will happen if trying place a 2nd operator without a 2nd digit
+                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != SUBTRACTION) {
+                        changeOperator("-");
+                    } else {
+                        appendToEquation("-");
+                    }
+
                     CURRENT_ACTION = SUBTRACTION;
-                    appendToEquation("-");
                 }
             }
         });
@@ -141,9 +155,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!"".equals(binding.equation.getText().toString())) {
-                    computeCalculation();
+
+                    // this will happen if trying place a 2nd operator without a 2nd digit
+                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != MULTIPLICATION) {
+                        changeOperator("*");
+                    } else {
+                        appendToEquation("*");
+                    }
+
                     CURRENT_ACTION = MULTIPLICATION;
-                    appendToEquation("*");
                 }
             }
         });
@@ -153,8 +173,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!"".equals(binding.equation.getText().toString())) {
                     computeCalculation();
+
+                    // this will happen if trying place a 2nd operator without a 2nd digit
+                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != DIVISION) {
+                        changeOperator("/");
+                    } else {
+                        appendToEquation("/");
+                    }
+
                     CURRENT_ACTION = DIVISION;
-                    appendToEquation("/");
                 }
             }
         });
@@ -188,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
         binding.equation.setText(binding.equation.getText() + value);
     }
 
+    private void changeOperator(String operator) {
+        binding.equation.setText(decimalFormat.format(valueOne) + operator);
+    }
 
     private Double getValueTwo() {
         String equation = binding.equation.getText().toString();
