@@ -97,13 +97,32 @@ public class EquationModel {
             }
             this.hasDecimalTwo = true;
         }
-        equaled = false;
+        this.equaled = false;
+        updateFullEquation();
+    }
+
+    public void invertValue() {
+        if(!this.activeValue && !this.valueOne.isEmpty()) {
+            this.valueOne = "-" + this.valueOne;
+//            this.valueOne = String.valueOf(Double.valueOf(this.valueOne) * -1);
+//            if(!this.hasDecimalOne || !isZero(this.valueOne)) {
+//                this.valueOne = cleanValue(this.valueOne);
+//            }
+        } else if(!this.valueTwo.isEmpty()){
+            this.valueTwo = "-" + this.valueTwo;
+//            this.valueTwo = String.valueOf(Double.valueOf(this.valueTwo) * -1);
+//            if(!this.hasDecimalTwo || !isZero((this.valueTwo))) {
+//                this.valueTwo = cleanValue(this.valueTwo);
+//            }
+        }
         updateFullEquation();
     }
 
     public void updateOperator(char operator) {
         if (!this.valueTwo.isEmpty()) {
             solveEquation();
+        } else if (this.valueOne.charAt(this.valueOne.length() - 1) == '.') {
+            this.valueOne += "0";
         }
 
         this.operator = operator;
@@ -186,5 +205,14 @@ public class EquationModel {
 
     private String removeLeadingZeroes(String value) {
         return value.replaceFirst("^0+(?!$)", "");
+    }
+
+    private boolean isZero(String value) {
+        Double valueDbl = Double.valueOf(value);
+        if(valueDbl == 0.0) {
+            return true;
+        }
+
+        return false;
     }
 }

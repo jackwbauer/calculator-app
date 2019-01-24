@@ -32,16 +32,6 @@
             android:textSize="30sp"
             android:text="@{equation.fullEquation}"/>
 
-        <!--<TextView-->
-            <!--android:id="@+id/resultTextView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/equation"-->
-            <!--android:gravity="end"-->
-            <!--android:textAlignment="textEnd"-->
-            <!--android:enabled="false"-->
-            <!--android:textSize="40sp" />-->
-
         <Button
             android:id="@+id/button1"
             style="@style/Button"
@@ -181,6 +171,14 @@
             android:layout_below="@id/buttonAdd"
             android:layout_toRightOf="@id/buttonEqual"
             android:text="-" />
+
+        <Button
+            android:id="@+id/buttonInvert"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonDot"
+            android:text="+/-" />
 
         <Button
             android:id="@+id/buttonClear"
