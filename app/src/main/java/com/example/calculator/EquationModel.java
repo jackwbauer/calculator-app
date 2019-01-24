@@ -17,15 +17,11 @@ public class EquationModel {
     private Double solution;
     private boolean equaled = false;
     private boolean activeValue = false; // false is valueOne, true is valueTwo
-    private int trailingZeroesOne = 0;
-    private int trailingZeroesTwo = 0;
     private boolean hasDecimalOne = false;
     private boolean hasDecimalTwo = false;
 
     public EquationModel() {
         this.fullEquation.set("");
-//        this.valueOne = Double.NaN;
-        //this.valueTwo = Double.NaN;
         this.valueOne = "";
         this.valueTwo = "";
     }
@@ -33,17 +29,21 @@ public class EquationModel {
     public void updateFullEquation() {
         String equation = "";
         if(!this.valueOne.isEmpty()) {
-            if (Double.valueOf(this.valueOne) % 1 == 0 || activeValue) {
-                equation += String.valueOf(Integer.parseInt(this.valueOne));
+            if(this.hasDecimalOne) {
+                equation += this.valueOne;
+            } else if (Double.valueOf(this.valueOne) % 1 == 0 && activeValue) {
+                equation += String.valueOf(Math.round(Double.valueOf(this.valueOne)));
             } else {
                 equation += this.valueOne;
             }
 
             if (this.operator != '\u0000') {  // '\u0000' is the default char value
                 equation += this.operator;
-                if (!this.valueTwo.isEmpty()) {
+                if(this.hasDecimalTwo) {
+                    equation += this.valueTwo;
+                } else if (!this.valueTwo.isEmpty()) {
                     if (Double.valueOf(this.valueTwo) % 1 == 0) {
-                        equation += String.valueOf(Integer.parseInt(this.valueTwo));
+                        equation += String.valueOf(Math.round(Double.valueOf(this.valueTwo)));
                     } else {
                         equation += this.valueTwo;
                     }
@@ -59,25 +59,24 @@ public class EquationModel {
 
         if(operator == '\u0000') {
             if(equaled) {
-//                this.valueOne = new Double(digit);
                 this.valueOne = String.valueOf(digit);
                 equaled = false;
             } else if(!this.valueOne.isEmpty()) {
-                if(Double.valueOf(this.valueOne) % 1 == 0) {
-                    valueString = String.valueOf(Math.round(Double.valueOf(this.valueOne)));
-                } else {
+//                if(Double.valueOf(this.valueOne) % 1 == 0) {
+//                    valueString = String.valueOf(Math.round(Double.valueOf(this.valueOne)));
+//                } else {
                     valueString = this.valueOne;
-                }
+//                }
             }
             this.valueOne = valueString + digitString;
         } else {
             equaled = false;
             if(!this.valueTwo.isEmpty()) {
-                if(Double.valueOf(this.valueTwo) % 1 == 0) {
-                    valueString = String.valueOf(Integer.parseInt(this.valueTwo));
-                } else {
+//                if(Double.valueOf(this.valueTwo) % 1 == 0) {
+//                    valueString = String.valueOf(Math.round(Double.valueOf(this.valueTwo)));
+//                } else {
                     valueString = this.valueTwo;
-                }
+//                }
             }
             this.valueTwo = valueString + digitString;
         }
@@ -86,19 +85,23 @@ public class EquationModel {
     }
 
     public void addDecimalToValue() {
-        if(!activeValue) {
+        if(!activeValue && !this.hasDecimalOne) {
             if(this.valueOne.isEmpty()) {
                 this.valueOne += "0.";
-            } else {
-                this.valueOne += ".";
+            } else if (Double.valueOf(this.valueOne) % 1 == 0) {
+                this.valueOne = cleanValue(this.valueOne) + ".";
             }
-        } else {
+            this.hasDecimalOne = true;
+        } else if (!this.hasDecimalTwo){
             if(this.valueTwo.isEmpty()) {
                 this.valueTwo += "0.";
-            } else {
+            } else if (Double.valueOf(this.valueTwo) % 1 == 0){
                 this.valueTwo += ".";
             }
+            this.hasDecimalTwo = true;
         }
+        equaled = false;
+        updateFullEquation();
     }
 
     public void updateOperator(char operator) {
@@ -114,7 +117,7 @@ public class EquationModel {
         if(!this.valueTwo.isEmpty()) {
             calculateEquation();
             clearEquation();
-            this.valueOne = String.valueOf(this.solution);
+            this.valueOne = cleanValue(String.valueOf(this.solution));
             updateFullEquation();
             equaled = true;
         }
@@ -151,6 +154,9 @@ public class EquationModel {
         this.valueOne = "";
         this.valueTwo = "";
         this.operator = '\u0000';
+        this.activeValue = false;
+        this.hasDecimalOne = false;
+        this.hasDecimalTwo = false;
     }
 
     public void clearValue() {
@@ -166,5 +172,17 @@ public class EquationModel {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(8, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    private String cleanValue(String value) {
+        if(value.charAt(value.length() - 1) == '.') {
+            return value.substring(0, value.length() - 1);
+        }
+
+        if(Double.valueOf(value) % 1 == 0) {
+            return String.valueOf(Math.round(Double.valueOf(value)));
+        }
+
+        return value;
     }
 }
