@@ -4,13 +4,10 @@ import android.databinding.ObservableField;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 public class EquationModel {
     public ObservableField<String> fullEquation = new ObservableField<>();
-//    public Double valueOne;
     public String valueOne;
-//    public Double valueTwo;
     public String valueTwo;
     public char operator;
 
@@ -62,21 +59,13 @@ public class EquationModel {
                 this.valueOne = String.valueOf(digit);
                 equaled = false;
             } else if(!this.valueOne.isEmpty()) {
-//                if(Double.valueOf(this.valueOne) % 1 == 0) {
-//                    valueString = String.valueOf(Math.round(Double.valueOf(this.valueOne)));
-//                } else {
                     valueString = this.valueOne;
-//                }
             }
             this.valueOne = valueString + digitString;
         } else {
             equaled = false;
             if(!this.valueTwo.isEmpty()) {
-//                if(Double.valueOf(this.valueTwo) % 1 == 0) {
-//                    valueString = String.valueOf(Math.round(Double.valueOf(this.valueTwo)));
-//                } else {
                     valueString = this.valueTwo;
-//                }
             }
             this.valueTwo = valueString + digitString;
         }
@@ -110,6 +99,7 @@ public class EquationModel {
         }
 
         this.operator = operator;
+        this.activeValue = true;
         updateFullEquation();
     }
 
