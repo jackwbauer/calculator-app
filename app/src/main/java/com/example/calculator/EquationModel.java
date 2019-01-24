@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class EquationModel {
     public ObservableField<String> fullEquation = new ObservableField<>();
@@ -16,6 +17,7 @@ public class EquationModel {
     private boolean activeValue = false; // false is valueOne, true is valueTwo
     private boolean hasDecimalOne = false;
     private boolean hasDecimalTwo = false;
+    private DecimalFormat decimalFormat = new DecimalFormat("#.#######E0");
 
     public EquationModel() {
         this.fullEquation.set("");
@@ -29,7 +31,7 @@ public class EquationModel {
             if (this.hasDecimalOne) {
                 equation += this.valueOne;
             } else if (Double.valueOf(this.valueOne) % 1 == 0 && activeValue) {
-                equation += String.valueOf(Math.round(Double.valueOf(this.valueOne)));
+                equation += exponentialNotation(String.valueOf(Math.round(Double.valueOf(this.valueOne))));
             } else {
                 equation += this.valueOne;
             }
@@ -103,17 +105,17 @@ public class EquationModel {
 
     public void invertValue() {
         if(!this.activeValue && !this.valueOne.isEmpty()) {
-            this.valueOne = "-" + this.valueOne;
-//            this.valueOne = String.valueOf(Double.valueOf(this.valueOne) * -1);
-//            if(!this.hasDecimalOne || !isZero(this.valueOne)) {
-//                this.valueOne = cleanValue(this.valueOne);
-//            }
+            if(this.valueOne.charAt(0) == '-') {
+                this.valueOne = this.valueOne.substring(1);
+            } else {
+                this.valueOne = "-" + this.valueOne;
+            }
         } else if(!this.valueTwo.isEmpty()){
-            this.valueTwo = "-" + this.valueTwo;
-//            this.valueTwo = String.valueOf(Double.valueOf(this.valueTwo) * -1);
-//            if(!this.hasDecimalTwo || !isZero((this.valueTwo))) {
-//                this.valueTwo = cleanValue(this.valueTwo);
-//            }
+            if(this.valueTwo.charAt(0) == '-') {
+                this.valueTwo = this.valueTwo.substring(1);
+            } else {
+                this.valueTwo = "-" + this.valueTwo;
+            }
         }
         updateFullEquation();
     }
@@ -134,7 +136,7 @@ public class EquationModel {
         if (!this.valueTwo.isEmpty()) {
             calculateEquation();
             clearEquation();
-            this.valueOne = cleanValue(String.valueOf(this.solution));
+            this.valueOne = removeTailingDotZero(exponentialNotation(this.solution));
             updateFullEquation();
             equaled = true;
         }
@@ -207,6 +209,15 @@ public class EquationModel {
         return value.replaceFirst("^0+(?!$)", "");
     }
 
+    private String removeTailingDotZero(String value) {
+        String valueSubStr = value.substring(0, value.length() - 2);
+        if(value.equals(valueSubStr + ".0")) {
+            return valueSubStr;
+        }
+
+        return value;
+    }
+
     private boolean isZero(String value) {
         Double valueDbl = Double.valueOf(value);
         if(valueDbl == 0.0) {
@@ -214,5 +225,30 @@ public class EquationModel {
         }
 
         return false;
+    }
+
+    private String exponentialNotation(String value) {
+        Double valueDbl = Double.valueOf(value);
+        if(valueDbl / 10000000 > 1) {
+            return decimalFormat.format(Double.valueOf(value));
+        }
+
+        if(valueDbl * 10000000 < 1) {
+            return decimalFormat.format(Double.valueOf(value));
+        }
+
+        return value;
+    }
+
+    private String exponentialNotation(Double value) {
+        if(value / 10000000 > 1) {
+            return decimalFormat.format(Double.valueOf(value));
+        }
+
+        if(value * 10000000 < 1) {
+            return decimalFormat.format(Double.valueOf(value));
+        }
+
+        return value.toString();
     }
 }
