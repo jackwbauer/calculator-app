@@ -141,6 +141,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.buttonBackspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                equationModel.backspace();
+            }
+        });
+
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

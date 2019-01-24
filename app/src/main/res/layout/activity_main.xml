@@ -181,6 +181,15 @@
             android:text="+/-" />
 
         <Button
+            android:id="@+id/buttonBackspace"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button0"
+            android:layout_toRightOf="@id/buttonInvert"
+            android:text="BS" />
+
+        <Button
             android:id="@+id/buttonClear"
             style="@style/Button"
             android:layout_width="wrap_content"

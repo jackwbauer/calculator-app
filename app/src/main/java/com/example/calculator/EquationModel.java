@@ -187,6 +187,15 @@ public class EquationModel {
         updateFullEquation();
     }
 
+    public void backspace() {
+        if(!this.activeValue && !this.valueOne.isEmpty()) {
+            this.valueOne = this.valueOne.substring(0, this.valueOne.length() - 1);
+        } else if (!this.valueTwo.isEmpty()) {
+            this.valueTwo = this.valueTwo.substring(0, this.valueTwo.length() - 1);
+        }
+        updateFullEquation();
+    }
+
     private static double round(double value) {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(8, RoundingMode.HALF_UP);
