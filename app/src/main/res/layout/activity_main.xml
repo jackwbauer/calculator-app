@@ -2,6 +2,12 @@
 
 <layout>
 
+    <data>
+        <variable
+            name="equation"
+            type="com.example.calculator.EquationModel" />
+    </data>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +29,8 @@
             android:textAlignment="textEnd"
             android:lines="2"
             android:maxLines="2"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:text="@{equation.fullEquation}"/>
 
         <!--<TextView-->
             <!--android:id="@+id/resultTextView"-->

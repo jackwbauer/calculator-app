@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
 
     private double valueOne = Double.NaN;
     private double valueTwo;
+
+    private boolean hasOperator = false;
+
+    public ObservableField<String> equation = new ObservableField<>();
 
     // actions
     private static final char ADDITION = '+';
@@ -30,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        final EquationModel equationModel = new EquationModel();
+        binding.setEquation(equationModel);
 
         //can display up to 10 decimal places
         decimalFormat = new DecimalFormat("#.##########");
@@ -39,70 +46,80 @@ public class MainActivity extends AppCompatActivity {
         binding.button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("0");
+                equationModel.updateValue(0);
+//                appendToEquation("0");
             }
         });
 
         binding.button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("1");
+                equationModel.updateValue(1);
+//                appendToEquation("1");
             }
         });
 
         binding.button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("2");
+                equationModel.updateValue(2);
+//                appendToEquation("2");
             }
         });
 
         binding.button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("3");
+                equationModel.updateValue(3);
+//                appendToEquation("3");
             }
         });
 
         binding.button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("4");
+                equationModel.updateValue(4);
+//                appendToEquation("4");
             }
         });
 
         binding.button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("5");
+                equationModel.updateValue(5);
+//                appendToEquation("5");
             }
         });
 
         binding.button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("6");
+                equationModel.updateValue(6);
+//                appendToEquation("6");
             }
         });
 
         binding.button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("7");
+                equationModel.updateValue(7);
+//                appendToEquation("7");
             }
         });
 
         binding.button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("8");
+                equationModel.updateValue(8);
+//                appendToEquation("8");
             }
         });
 
         binding.button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                appendToEquation("9");
+                equationModel.updateValue(9);
+//                appendToEquation("9");
             }
         });
 
@@ -110,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!binding.equation.getText().toString().contains(".")) {
+                    equationModel.addDecimalToValue();
                     appendToEquation(".");
                 }
             }
@@ -119,16 +137,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!binding.equation.getText().toString().isEmpty()) {
-                    computeCalculation();
-
-                    // this will happen if trying place a 2nd operator without a 2nd digit
-                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != ADDITION) {
-                        changeOperator("+");
-                    } else {
-                        appendToEquation("+");
-                    }
-
-                    CURRENT_ACTION = ADDITION;
+                    equationModel.updateOperator('+');
+//                    computeCalculation();
+//
+//                    // this will happen if trying place a 2nd operator without a 2nd digit
+//                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != ADDITION) {
+//                        changeOperator("+");
+//                    } else {
+//                        appendToEquation("+");
+//                    }
+//
+//                    CURRENT_ACTION = ADDITION;
                 }
             }
         });
@@ -136,76 +155,87 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!"".equals(binding.equation.getText().toString())) {
-                    computeCalculation();
-
-                    // this will happen if trying place a 2nd operator without a 2nd digit
-                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != SUBTRACTION) {
-                        changeOperator("-");
-                    } else {
-                        appendToEquation("-");
-                    }
-
-                    CURRENT_ACTION = SUBTRACTION;
-                }
+                equationModel.updateOperator('-');
+//                if (!"".equals(binding.equation.getText().toString()) && !Double.isNaN(valueTwo)) {
+//                    computeCalculation();
+//
+//                    // this will happen if trying place a 2nd operator without a 2nd digit
+//                    if(CURRENT_ACTION != SUBTRACTION) {
+//                        changeOperator("-");
+//                    } else {
+//                        appendToEquation("-");
+//                    }
+//
+//                    if(!Double.isNaN(valueTwo)) {
+//
+//                    }
+//
+//                    CURRENT_ACTION = SUBTRACTION;
+//                }
             }
         });
 
         binding.buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!"".equals(binding.equation.getText().toString())) {
-
-                    // this will happen if trying place a 2nd operator without a 2nd digit
-                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != MULTIPLICATION) {
-                        changeOperator("*");
-                    } else {
-                        appendToEquation("*");
-                    }
-
-                    CURRENT_ACTION = MULTIPLICATION;
-                }
+                equationModel.updateOperator('*');
+//                if (!"".equals(binding.equation.getText().toString())) {
+//
+//                    // this will happen if trying place a 2nd operator without a 2nd digit
+//                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != MULTIPLICATION) {
+//                        changeOperator("*");
+//                    } else {
+//                        appendToEquation("*");
+//                    }
+//
+//                    CURRENT_ACTION = MULTIPLICATION;
+//                }
             }
         });
 
         binding.buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!"".equals(binding.equation.getText().toString())) {
-                    computeCalculation();
-
-                    // this will happen if trying place a 2nd operator without a 2nd digit
-                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != DIVISION) {
-                        changeOperator("/");
-                    } else {
-                        appendToEquation("/");
-                    }
-
-                    CURRENT_ACTION = DIVISION;
-                }
+                equationModel.updateOperator('/');
+//                if (!"".equals(binding.equation.getText().toString())) {
+//                    computeCalculation();
+//
+//                    // this will happen if trying place a 2nd operator without a 2nd digit
+//                    if(Double.isNaN(valueTwo) && CURRENT_ACTION != DIVISION) {
+//                        changeOperator("/");
+//                    } else {
+//                        appendToEquation("/");
+//                    }
+//
+//                    CURRENT_ACTION = DIVISION;
+//                }
             }
         });
 
         binding.buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                computeCalculation();
+                equationModel.solveEquation();
+//                computeCalculation();
             }
         });
 
         binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.equation.setText(null);
-                valueOne = Double.NaN;
-                valueTwo = Double.NaN;
+                equationModel.clearEquation();
+                equationModel.updateFullEquation();
+//                binding.equation.setText(null);
+//                valueOne = Double.NaN;
+//                valueTwo = Double.NaN;
             }
         });
 
         binding.buttonClearEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.equation.setText(null);
+                equationModel.clearValue();
+//                binding.equation.setText(null);
             }
         });
 
@@ -220,12 +250,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Double getValueTwo() {
-        String equation = binding.equation.getText().toString();
-        int operatorIndex = equation.indexOf(CURRENT_ACTION);
+        String equationString = binding.equation.getText().toString();
+        int operatorIndex = equationString.indexOf(CURRENT_ACTION);
         if(operatorIndex == -1) {
             return Double.NaN;
         }
-        String valueString = equation.substring(operatorIndex + 1);
+        String valueString = equationString.substring(operatorIndex + 1);
         if(valueString.isEmpty()) {
             return Double.NaN;
         }
