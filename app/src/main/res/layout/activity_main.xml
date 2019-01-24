@@ -23,13 +23,13 @@
         <TextView
             android:id="@+id/equation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginBottom="30dp"
             android:gravity="end"
             android:textAlignment="textEnd"
-            android:lines="2"
-            android:maxLines="2"
-            android:textSize="30sp"
+            android:ellipsize="start"
+            android:singleLine="true"
+            android:textSize="40sp"
             android:text="@{equation.fullEquation}"/>
 
         <Button
@@ -37,7 +37,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/equation"
+            android:layout_below="@id/buttonClear"
             android:text="1" />
 
         <Button
@@ -45,7 +45,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/equation"
+            android:layout_below="@id/buttonClearEntry"
             android:layout_toRightOf="@id/button1"
             android:text="2" />
 
@@ -54,7 +54,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/equation"
+            android:layout_below="@id/buttonBackspace"
             android:layout_toRightOf="@id/button2"
             android:text="3" />
 
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/button8"
-            android:layout_toRightOf="@id/buttonDot"
+            android:layout_toRightOf="@id/buttonInvert"
             android:text="0" />
 
         <Button
@@ -124,7 +124,8 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button7"
+            android:layout_below="@id/button9"
+            android:layout_toRightOf="@id/button0"
             android:text="." />
 
         <Button
@@ -132,8 +133,8 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button9"
-            android:layout_toRightOf="@id/button0"
+            android:layout_below="@id/buttonSubtract"
+            android:layout_toRightOf="@id/buttonDot"
             android:text="=" />
 
         <Button
@@ -142,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/equation"
-            android:layout_toRightOf="@id/button3"
+            android:layout_toRightOf="@id/buttonBackspace"
             android:text="*" />
 
         <Button
@@ -151,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buttonMultiply"
-            android:layout_toRightOf="@id/button6"
+            android:layout_toRightOf="@id/button3"
             android:text="/" />
 
         <Button
@@ -160,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buttonDivide"
-            android:layout_toRightOf="@id/button9"
+            android:layout_toRightOf="@id/button6"
             android:text="+" />
 
         <Button
@@ -169,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/buttonAdd"
-            android:layout_toRightOf="@id/buttonEqual"
+            android:layout_toRightOf="@id/button9"
             android:text="-" />
 
         <Button
@@ -177,7 +178,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/buttonDot"
+            android:layout_below="@id/button7"
             android:text="+/-" />
 
         <Button
@@ -185,17 +186,16 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button0"
-            android:layout_toRightOf="@id/buttonInvert"
-            android:text="BS" />
+            android:layout_below="@id/equation"
+            android:layout_toRightOf="@id/buttonClearEntry"
+            android:text="\u232b" />
 
         <Button
             android:id="@+id/buttonClear"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/buttonSubtract"
-            android:layout_toRightOf="@id/button3"
+            android:layout_below="@id/equation"
             android:text="C"
             android:textColor="@color/red" />
 
@@ -204,8 +204,8 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/buttonEqual"
-            android:layout_toLeftOf="@id/buttonClear"
+            android:layout_below="@id/equation"
+            android:layout_toRightOf="@id/buttonClear"
             android:text="CE" />
     </RelativeLayout>
 
