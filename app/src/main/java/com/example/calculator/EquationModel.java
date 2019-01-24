@@ -188,9 +188,18 @@ public class EquationModel {
     }
 
     public void backspace() {
+        char toRemove;
         if(!this.activeValue && !this.valueOne.isEmpty()) {
+            toRemove = this.valueOne.charAt(this.valueOne.length() - 1);
+            if(toRemove == '.') {
+                this.hasDecimalOne = false;
+            }
             this.valueOne = this.valueOne.substring(0, this.valueOne.length() - 1);
         } else if (!this.valueTwo.isEmpty()) {
+            toRemove = this.valueTwo.charAt(this.valueTwo.length() - 1);
+            if(toRemove == '.') {
+                this.hasDecimalTwo = false;
+            }
             this.valueTwo = this.valueTwo.substring(0, this.valueTwo.length() - 1);
         }
         updateFullEquation();
