@@ -13,23 +13,23 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
-    private double valueOne = Double.NaN;
-    private double valueTwo;
-
-    private boolean hasOperator = false;
-
-    public ObservableField<String> equation = new ObservableField<>();
-
-    // actions
-    private static final char ADDITION = '+';
-    private static final char SUBTRACTION = '-';
-    private static final char MULTIPLICATION = '*';
-    private static final char DIVISION = '/';
-    private static final char NONE = '0';
-
-    private char CURRENT_ACTION;
-
-    private DecimalFormat decimalFormat;
+//    private double valueOne = Double.NaN;
+//    private double valueTwo;
+//
+//    private boolean hasOperator = false;
+//
+//    public ObservableField<String> equation = new ObservableField<>();
+//
+//    // actions
+//    private static final char ADDITION = '+';
+//    private static final char SUBTRACTION = '-';
+//    private static final char MULTIPLICATION = '*';
+//    private static final char DIVISION = '/';
+//    private static final char NONE = '0';
+//
+//    private char CURRENT_ACTION;
+//
+//    private DecimalFormat decimalFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
