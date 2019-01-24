@@ -13,6 +13,7 @@ public class EquationModel {
     public char operator;
 
     private Double solution;
+    private boolean equaled = false;
 
     public EquationModel() {
         this.fullEquation.set("");
@@ -48,7 +49,10 @@ public class EquationModel {
         String valueString = "";
 
         if(operator == '\u0000') {
-            if(!Double.isNaN(this.valueOne)) {
+            if(equaled) {
+                this.valueOne = new Double(digit);
+                equaled = false;
+            } else if(!Double.isNaN(this.valueOne)) {
                 if(this.valueOne % 1 == 0) {
                     valueString = String.valueOf(Math.round(this.valueOne));
                 } else {
@@ -57,6 +61,7 @@ public class EquationModel {
             }
             this.valueOne = Double.valueOf(valueString + digitString);
         } else {
+            equaled = false;
             if(!Double.isNaN(this.valueTwo)) {
                 if(this.valueTwo % 1 == 0) {
                     valueString = String.valueOf(Math.round(this.valueTwo));
@@ -89,6 +94,7 @@ public class EquationModel {
             clearEquation();
             this.valueOne = this.solution;
             updateFullEquation();
+            equaled = true;
         }
     }
 
