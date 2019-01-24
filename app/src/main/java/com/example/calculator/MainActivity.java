@@ -126,10 +126,11 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.equation.getText().toString().contains(".")) {
-                    equationModel.addDecimalToValue();
-                    appendToEquation(".");
-                }
+                equationModel.addDecimalToValue();
+//                if(!binding.equation.getText().toString().contains(".")) {
+//                    equationModel.addDecimalToValue();
+//                    appendToEquation(".");
+//                }
             }
         });
 
@@ -241,47 +242,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void appendToEquation(String value) {
-        binding.equation.setText(binding.equation.getText() + value);
-    }
+//    private void appendToEquation(String value) {
+//        binding.equation.setText(binding.equation.getText() + value);
+//    }
+//
+//    private void changeOperator(String operator) {
+//        binding.equation.setText(decimalFormat.format(valueOne) + operator);
+//    }
 
-    private void changeOperator(String operator) {
-        binding.equation.setText(decimalFormat.format(valueOne) + operator);
-    }
+//    private Double getValueTwo() {
+//        String equationString = binding.equation.getText().toString();
+//        int operatorIndex = equationString.indexOf(CURRENT_ACTION);
+//        if(operatorIndex == -1) {
+//            return Double.NaN;
+//        }
+//        String valueString = equationString.substring(operatorIndex + 1);
+//        if(valueString.isEmpty()) {
+//            return Double.NaN;
+//        }
+//        return Double.parseDouble(valueString);
+//    }
 
-    private Double getValueTwo() {
-        String equationString = binding.equation.getText().toString();
-        int operatorIndex = equationString.indexOf(CURRENT_ACTION);
-        if(operatorIndex == -1) {
-            return Double.NaN;
-        }
-        String valueString = equationString.substring(operatorIndex + 1);
-        if(valueString.isEmpty()) {
-            return Double.NaN;
-        }
-        return Double.parseDouble(valueString);
-    }
-
-    private void computeCalculation() {
-        if(Double.isNaN(valueOne)) {
-            try {
-                valueOne = Double.parseDouble(binding.equation.getText().toString());
-            } catch(Exception e) {}
-        } else {
-            valueTwo = getValueTwo();
-            if(!Double.isNaN(valueTwo)) {
-                if (CURRENT_ACTION == ADDITION) {
-                    valueOne += valueTwo;
-                } else if (CURRENT_ACTION == SUBTRACTION) {
-                    valueOne -= valueTwo;
-                } else if (CURRENT_ACTION == MULTIPLICATION) {
-                    valueOne *= valueTwo;
-                } else if (CURRENT_ACTION == DIVISION) {
-                    valueOne /= valueTwo;
-                }
-                binding.equation.setText(decimalFormat.format(valueOne));
-                CURRENT_ACTION = NONE;
-            }
-        }
-    }
+//    private void computeCalculation() {
+//        if(Double.isNaN(valueOne)) {
+//            try {
+//                valueOne = Double.parseDouble(binding.equation.getText().toString());
+//            } catch(Exception e) {}
+//        } else {
+//            valueTwo = getValueTwo();
+//            if(!Double.isNaN(valueTwo)) {
+//                if (CURRENT_ACTION == ADDITION) {
+//                    valueOne += valueTwo;
+//                } else if (CURRENT_ACTION == SUBTRACTION) {
+//                    valueOne -= valueTwo;
+//                } else if (CURRENT_ACTION == MULTIPLICATION) {
+//                    valueOne *= valueTwo;
+//                } else if (CURRENT_ACTION == DIVISION) {
+//                    valueOne /= valueTwo;
+//                }
+//                binding.equation.setText(decimalFormat.format(valueOne));
+//                CURRENT_ACTION = NONE;
+//            }
+//        }
+//    }
 }
