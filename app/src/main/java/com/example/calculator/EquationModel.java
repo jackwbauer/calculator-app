@@ -259,11 +259,11 @@ public class EquationModel {
     }
 
     private String exponentialNotation(Double value) {
-        if(value / 10000000 > 1) {
+        if(Math.abs(value) / 10000000 > 1) {
             return decimalFormat.format(Double.valueOf(value));
         }
 
-        if(value * 10000000 < 1) {
+        if(Math.abs(value) * 10000000 < 1) {
             return decimalFormat.format(Double.valueOf(value));
         }
 
