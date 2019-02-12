@@ -5,7 +5,7 @@
     <data>
         <variable
             name="equation"
-            type="com.example.calculator.EquationModel" />
+            type="com.jackbauer.calculator.EquationModel" />
     </data>
 
     <RelativeLayout

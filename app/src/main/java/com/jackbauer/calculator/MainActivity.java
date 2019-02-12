@@ -1,11 +1,11 @@
-package com.example.calculator;
+package com.jackbauer.calculator;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.calculator.databinding.ActivityMainBinding;
+import com.jackbauer.calculator.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.jackbauer.calculator;
 
 import android.databinding.ObservableField;
 
